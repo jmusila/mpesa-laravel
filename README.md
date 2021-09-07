@@ -26,6 +26,7 @@ Composer
 ### Testing on Postman
 - Run `$ php artisan serve` to start the server
 - Test the following endpoint:
+- Heroku BASE_URL `$ https://my-mpesa-laravel.herokuapp.com`
 
 | EndPoint                       | Functionality                           |
 | -------------------------------|:---------------------------------------:|
