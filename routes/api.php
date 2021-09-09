@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/v1/token', [MpesaController::class, 'generateToken']);
+
+Route::post('v1/stk/push', [MpesaController::class, 'customerSTKPush']);

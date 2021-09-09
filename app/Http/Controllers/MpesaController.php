@@ -33,7 +33,7 @@ class MpesaController extends Controller
 
             $this->passKey = config('mpesa.pass_key');
 
-            $this->businessShortCode = config('mpesa.short_code');
+            $this->businessShortCode = config('mpesa.business_code');
 
             $this->stk_url = config('mpesa.stk_url');
         }
@@ -48,17 +48,16 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_URL, $this->stk_url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generateToken()));
         $curl_post_data = [
-            //Fill in the request parameters with valid values
             'BusinessShortCode' => $this->businessShortCode,
             'Password' => $this->lipaNaMpesaPassword(),
             'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
-            'TransactionType' => 'JonathanSPayBill',
-            'Amount' => 5,
-            'PartyA' => 254728858889, // replace this with your phone number
-            'PartyB' => 174379,
-            'PhoneNumber' => 254728858889, // replace this with your phone number
-            'CallBackURL' => 'https://mydomain.com/path',
-            'AccountReference' => "Jonathan Creations",
+            'TransactionType' => 'CustomerPayBillOnline',
+            'Amount' => 1,
+            'PartyA' => env('MPESA_MOBILE_NUMBER'),
+            'PartyB' => $this->businessShortCode,
+            'PhoneNumber' => env('MPESA_MOBILE_NUMBER'),
+            'CallBackURL' => 'https://cleangenesis.com/path',
+            'AccountReference' => "Clean Genesis",
             'TransactionDesc' => "Testing stk push on sandbox"
         ];
         $data_string = json_encode($curl_post_data);
