@@ -45,5 +45,12 @@ return [
      * MPESA BUSINESS CODE
      * --------------------------------------------------
      */
-    'business_code' => getenv('MPESA_BUSINESS_CODE')
+    'business_code' => getenv('MPESA_BUSINESS_CODE'),
+
+    /**
+     * --------------------------------------------------
+     * MPESA STK URL
+     * --------------------------------------------------
+     */
+    'stk_url' => getenv('MPESA_STK_URL')
 ];

@@ -13,6 +13,12 @@ class MpesaController extends Controller
 
     private $consumer_secret;
 
+    private $passKey;
+
+    private $businessShortCode;
+
+    private $stk_url;
+
     /**
      * Instantiate the class
      */
@@ -24,7 +30,43 @@ class MpesaController extends Controller
             $this->consumer_key = config('mpesa.consumer_key');
 
             $this->consumer_secret = config('mpesa.consumer_secret');
+
+            $this->passKey = config('mpesa.pass_key');
+
+            $this->businessShortCode = config('mpesa.short_code');
+
+            $this->stk_url = config('mpesa.stk_url');
         }
+    }
+
+    /**
+     * Prompt customer STK push
+     */
+    public function customerSTKPush()
+    {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $this->stk_url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generateToken()));
+        $curl_post_data = [
+            //Fill in the request parameters with valid values
+            'BusinessShortCode' => $this->businessShortCode,
+            'Password' => $this->lipaNaMpesaPassword(),
+            'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
+            'TransactionType' => 'JonathanSPayBill',
+            'Amount' => 5,
+            'PartyA' => 254728858889, // replace this with your phone number
+            'PartyB' => 174379,
+            'PhoneNumber' => 254728858889, // replace this with your phone number
+            'CallBackURL' => 'https://mydomain.com/path',
+            'AccountReference' => "Jonathan Creations",
+            'TransactionDesc' => "Testing stk push on sandbox"
+        ];
+        $data_string = json_encode($curl_post_data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+        $curl_response = curl_exec($curl);
+        return $curl_response;
     }
 
     /**
@@ -51,10 +93,6 @@ class MpesaController extends Controller
     {
         $payment_time = Carbon::rawParse('now')->format('YmdHms');
 
-        $passKey = config('mpesa.pass_key');
-
-        $businessShortCode = config('mpesa.short_code');
-
-        $payment_password = base64_encode($businessShortCode.$passKey.$payment_time);
+        return base64_encode($this->businessShortCode.$this->passKey.$payment_time);
     }
 }
