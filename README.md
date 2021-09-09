@@ -19,6 +19,12 @@ Composer
         - `MPESA_CONSUMER_SECRET="your_secret_key"`
         - `MPESA_BASE_URL="safaricom_sandbox_url"`
         - `MPESA_ENV="sandbox"`
+        - `MPESA_PASS_KEY="valid_pass_key"`
+        - `MPESA_BUSINESS_CODE="business_code"`
+        - `MPESA_STK_URL="sanbox_stk_push_url"`
+        - `MPESA_MOBILE_NUMBER="vali_mobile_number"`
+        - `MPESA_CALL_BACK_URL="https://someurl.com/path"`
+        - `MPESA_AUTO_REFERENCE="SOME REFERENCE"`
     - Create database and add database configurations on the .env file
     - Run `$ composer install` to install dependancies
     - Run `$ php artisan key:generate` to generate app key
@@ -31,5 +37,5 @@ Composer
 | EndPoint                       | Functionality                           |
 | -------------------------------|:---------------------------------------:|
 | POST /api/v1/token             | Get Genarated MPESA token               |
-|                                                                          |
+| POST /api/v1/stk/push          |  STK Push to the Customer               |
 
