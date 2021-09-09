@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MpesaController extends Controller
@@ -41,5 +42,13 @@ class MpesaController extends Controller
         $curl_response = curl_exec($curl);
         $token=json_decode($curl_response);
         return $token->access_token;
+    }
+
+    /**
+     * Generate Lipa na Mpesa Password
+     */
+    public function lipaNaMpesaPassword()
+    {
+        $payment_time = Carbon::rawParse('now')->format('YmdHms');
     }
 }
