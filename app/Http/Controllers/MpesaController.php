@@ -56,8 +56,8 @@ class MpesaController extends Controller
             'PartyA' => env('MPESA_MOBILE_NUMBER'),
             'PartyB' => $this->businessShortCode,
             'PhoneNumber' => env('MPESA_MOBILE_NUMBER'),
-            'CallBackURL' => 'https://cleangenesis.com/path',
-            'AccountReference' => "Clean Genesis",
+            'CallBackURL' => config('mpesa.call_back_url'),
+            'AccountReference' => env('MPESA_AUTO_REFERENCE'),
             'TransactionDesc' => "Testing stk push on sandbox"
         ];
         $data_string = json_encode($curl_post_data);

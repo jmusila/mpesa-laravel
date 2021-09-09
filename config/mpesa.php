@@ -52,5 +52,12 @@ return [
      * MPESA STK URL
      * --------------------------------------------------
      */
-    'stk_url' => getenv('MPESA_STK_URL')
+    'stk_url' => getenv('MPESA_STK_URL'),
+
+    /**
+     * --------------------------------------------------
+     * MPESA CALL BACK URL
+     * --------------------------------------------------
+     */
+    'call_back_url' => getenv('MPESA_CALL_BACK_URL')
 ];
