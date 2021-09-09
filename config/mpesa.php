@@ -31,5 +31,19 @@ return [
       * MPESA SECRET KEY
       * ------------------------------------
       */
-      'consumer_secret' => getenv('MPESA_CONSUMER_SECRET')
+      'consumer_secret' => getenv('MPESA_CONSUMER_SECRET'),
+
+    /**
+     * --------------------------------------------------
+     * MPESA PASS KEY
+     * --------------------------------------------------
+     */
+    'pass_key' => getenv('MPESA_PASS_KEY'),
+
+    /**
+     * --------------------------------------------------
+     * MPESA BUSINESS CODE
+     * --------------------------------------------------
+     */
+    'business_code' => getenv('MPESA_BUSINESS_CODE')
 ];

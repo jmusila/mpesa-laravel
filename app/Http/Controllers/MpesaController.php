@@ -50,5 +50,11 @@ class MpesaController extends Controller
     public function lipaNaMpesaPassword()
     {
         $payment_time = Carbon::rawParse('now')->format('YmdHms');
+
+        $passKey = config('mpesa.pass_key');
+
+        $businessShortCode = config('mpesa.short_code');
+
+        $payment_password = base64_encode($businessShortCode.$passKey.$payment_time);
     }
 }
